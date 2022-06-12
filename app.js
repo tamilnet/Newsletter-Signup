@@ -50,9 +50,9 @@ app.post("/",function(req,res){
   console.log(url);
   const request=https.request(url,options,function(response){
     if(response.statusCode===200){
-      res.sendFile(__dirname+"/success.html");
+      res.redirect("/success");
     } else{
-      res.sendFile(__dirname+"/failure.html");
+      res.redirect("/failure");
     }
     response.on("data",function(data){
       console.log(JSON.parse(data));
@@ -68,11 +68,14 @@ app.post("/",function(req,res){
   
 });
 
-app.post("/failure.html",function(req, res){
-  res.redirect("/");
+app.get("/failure",function(req, res){
+  res.sendFile(__dirname+"/failure.html");
 })
 
 
+app.get("/success",function(req, res){
+  res.sendFile(__dirname+"/success.html");
+})
 
 
 
